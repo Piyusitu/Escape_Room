@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match</title>
+    <style>
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #ccc;
+            display: inline-block;
+            margin: 5px;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+        .matched {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameBoard"></div>
+
+    <script>
+        const symbols = ['🍎', '🍌', '🍒', '🍇', '🍉', '🍓', '🍍', '🥥'];
+        const totalPairs = 4;
+        let gameBoard = [];
+        let flippedCards = [];
+
+        // Create game board
+        const gameBoardElement = document.getElementById('gameBoard');
+        for (let i = 0; i < totalPairs * 2; i++) {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.index = i;
+            card.onclick = handleCardClick;
+            gameBoardElement.appendChild(card);
+            gameBoard.push({ symbol: '', element: card });
+        }
+
+        // Assign symbols to cards
+        for (let i = 0; i < totalPairs; i++) {
+            const symbol = symbols[i];
+            for (let j = 0; j < 2; j++) {
+                let index;
+                do {
+                    index = Math.floor(Math.random() * gameBoard.length);
+                } while (gameBoard[index].symbol !== '');
+                gameBoard[index].symbol = symbol;
+            }
+        }
+
+        let matchedPairs = 0;
+
+        function handleCardClick(event) {
+            const index = parseInt(event.target.dataset.index);
+            const card = gameBoard[index];
+            if (!flippedCards.includes(card) && flippedCards.length < 2) {
+                flippedCards.push(card);
+                event.target.textContent = card.symbol;
+                if (flippedCards.length === 2) {
+                    setTimeout(checkMatch, 1000);
+                }
+            }
+        }
+
+        function checkMatch() {
+            if (flippedCards[0].symbol === flippedCards[1].symbol) {
+                flippedCards[0].element.classList.add('matched');
+                flippedCards[1].element.classList.add('matched');
+                matchedPairs++;
+                if (matchedPairs === totalPairs) {
+                    alert('Congratulations! You won!');
+                }
+            } else {
+                flippedCards[0].element.textContent = '';
+                flippedCards[1].element.textContent = '';
+            }
+            flippedCards = [];
+        }
+    </script>
+</body>
+</html>

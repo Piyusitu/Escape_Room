@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Room</title>
+  <style>
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px; /* Optional spacing between items */
+      justify-content: space-between; /* Optional: Center items horizontally */
+      background-image: url("4k.jpg");
+    }
+    
+    .game-grid a {
+      text-align: center; /* Center text content */
+      text-decoration: none;
+    }
+    .game-grid a img {
+      transition: opacity 0.5s ease-in-out; /* Smooth transition */
+    }
+    
+    .game-grid a:hover img {
+      /*transform: scale(1.15) rotate(5deg); /* Zoom and slight rotation on hover */
+      transform: scale(1.1) skewX(5deg) translateX(5px); /* Zoom, slight skew, and horizontal shift */
+      animation-play-state: running; /* Start the animation on hover */
+      animation: zoomAndSpin 0.5s ease-in-out; /* Apply the animation on hover */
+
+    }
+    
+    @keyframes zoomAndSpin {
+        from { transform: scale(1); }
+        to { transform: scale(1.2) rotate(360deg); }
+    }
+    .nav-bar {
+      position: sticky; /* Make the nav bar sticky */
+      top: 0; /* Position at the top of the viewport */
+      background-color: #000000; /* Set background color */
+      color: #fff; /* Set text color */
+      padding: 10px 20px; /* Optional padding */
+      display: flex; /* Allow flexbox layout */
+      justify-content: space-between; /* Distribute elements horizontally */
+      align-items: center; /* Align search bar and links vertically */
+      
+}
+
+.search-bar {
+  background-color: #ddd; /* Optional background color for search bar */
+  border-radius: 5px; /* Add rounded corners */
+  padding: 5px; /* Optional padding */
+}
+
+.search-bar input {
+  padding: 5px; /* Adjust padding as needed */
+  border: none; /* Remove border */
+  outline: none; /* Remove outline on focus */
+}
+
+.nav-bar ul {
+  display: flex; /* Display links horizontally */
+  list-style: none; /* Remove default bullet points */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.nav-bar li {
+  margin-right: 20px; /* Add spacing between links */
+}
+
+.nav-bar a {
+  color: inherit; /* Inherit text color from nav bar */
+  text-decoration: none; /* Remove underline decoration */
+}
+
+.nav-bar a:hover {
+  color: #ddd; /* Change color on hover */
+}
+.search-bar {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      width: 180px;
+      border-radius: 5px;
+      position: sticky; /* Make the search bar sticky */
+      top: 0; /* Position it at the top of the viewport */
+      z-index: 100; /* Ensure the search bar stays above other elements */
+      background-color: black; /* Set search bar background to black */
+      color: white;
+    }
+    .search-bar input::placeholder {
+      color: white; /* Set placeholder color to white */
+    }
+    .search-bar input {
+      background-color: black; /* Set input background to black */
+      color: white; /* Set text color to white */
+      border: none; /* Remove border */
+      outline: none; /* Remove outline on focus */
+      padding: 5px; /* Maintain padding for space */
+    }
+    
+    .search-bar input:focus {
+      background-color: #fff;
+    }
+    .title h3 {
+      text-align: center;
+      font-style: italic;
+    }
+    .title img {
+      margin-right: 20px; /* Optional spacing between icon and text */
+      height: auto;
+      width: 50px;
+    }
+    .title {
+      display: flex; /* Enable flexbox layout */
+      justify-content: center; /* Center content horizontally */
+      align-items: center; /* Center content vertically */
+      background-color: #57c379; /* Optional background color */
+      padding: 10px 20px; /* Optional padding */
+    }
+
+    .container{
+      background-color: #000000;    }
+    .card{
+      background-color: #fff;
+      margin: 10px;
+      
+    }
+
+    body {
+  margin: 0; /* Remove default body margin */
+  font-family: sans-serif; /* Set a basic font family */
+}
+
+.container {
+  display: flex; /* Allow cards to be arranged horizontally */
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  justify-content: center; /* Center cards horizontally */
+  align-items: center; /* Center cards vertically */
+}
+
+.card {
+  background-color: #fff; /* Set card background color to white */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  border-radius: 5px; /* Add rounded corners */
+  margin: 10px; /* Add spacing between cards */
+  padding: 15px; /* Add padding within cards */
+  text-align: center; /* Center content within cards */
+  width: 300px; /* Adjust card width as needed */
+}
+
+.card p {
+  margin: 10px 0; /* Add spacing between paragraphs */
+}
+.card:hover {
+  transform: scale(1.05); /* Add slight scale on hover */
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+    
+  </style>
+</head>
+<body>
+  <div class="title">
+    <img src="Websiteicon.png" alt="WebsiteIcon">
+    <h3 style="display: inline-block; margin-left: 20px;">Welcome To The Virtual Escape Room</h3>
+  </div><br>
+
+  <nav class="nav-bar">
+    <div class="search-bar">
+      <input type="text" id="search-box" placeholder="Search Games">
+    </div>
+    <ul> <li><a href="#">About Games</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </nav>
+  <br>
+  <div class="game-grid">
+    <a href="game1.html"><img src="NewSnake.png" alt="Snake"><h3>Snake</h3></a>
+    <a href="game2.html"><img src="NewBounceTheBall.png" alt="2D Bounce"><h3>2D Bounce</h3></a>
+    <a href="game3.html"><img src="NewTTT.png" alt="Tic Tac Toe"><h3>Tic Tac Toe</h3></a>
+
+    <a href="game4.html"><img src="NewHangman.png" alt="Hangman"><h3>Hangman</h3></a>
+    <a href="game5.html"><img src="NewCrackTheCode.png" alt="Crack The Code"><h3>Crack The Code</h3></a>
+    <a href="game6.html"><img src="NewTetris.png" alt="Tetris"><h3>Tetris</h3></a>
+
+    <a href="game7.html"><img src="NewSudoku.png" alt="Sudoku"><h3>Sudoku</h3></a>
+    <a href="game8.html"><img src="NewMinesSweeper.png" alt="Mines Sweeper"><h3>Mines Sweeper</h3></a>
+    <a href="game9.html"><img src="NewMemoryMatching.png" alt="Memory Matching"><h3>Memory Matching</h3></a>
+
+    <a href="game10.html"><img src="NewRockPaperScissors.png" alt="Rock Paper Scissors"><h3>Rock Paper Scissor</h3></a>
+    <a href="game11.html"><img src="Bird.png" alt="Flappy Bird"><h3>Flappy Bird</h3></a>
+    <a href="game12.html"><img src="2048.png" alt="2048" style="height: auto; width: 250px;"><h3>2048</h3></a>
+  </div>
+  <br>
+  <div class="container">
+    <div class="card">
+      <h4>Snake</h4>
+      <p>"Relive arcade gaming's glory days with 'Retro Snake.' 
+        Maneuver your snake to gobble up apples and grow longer. 
+        Watch out for your tail and grid boundaries – one wrong move ends the game! 
+        With simple controls and addictive gameplay, 'Retro Snake' offers endless fun. 
+        Compete for the highest score and become the ultimate Snake master!"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>2D Bounce Ball</h4>
+      <p>"Dive into 'Bounce Blitz' and navigate a bouncing ball through challenging levels. 
+          With precise timing and strategic planning, bounce off walls and platforms to reach the goal. 
+          Watch out for obstacles like moving platforms and spikes! Featuring vibrant graphics and addictive gameplay, 
+          'Bounce Blitz' offers endless entertainment. Compete for the highest score and become the ultimate bouncer!"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Tic Tac Toe</h4>
+      <p>"Experience timeless fun with 'Tic Tac Toe.' 
+          Take turns placing Xs and Os on a grid, aiming to get three in a row horizontally, vertically, or diagonally. 
+          Simple yet addictive, 'Tic Tac Toe' offers quick matches perfect for passing the time. 
+          Challenge friends or test your skills against the computer. Can you outsmart your opponent and claim victory?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Hangman</h4>
+      <p>"Dive into the guessing game 'Word Guesser' and try to unravel the mystery word before the hangman is complete. 
+          Guess letters one by one, but be careful – each incorrect guess brings the hangman closer to his fate! 
+          With a wide range of words to decipher and varying difficulty levels, 'Word Guesser' offers endless entertainment. 
+          Challenge your vocabulary and test your deduction skills. Can you solve the word and save the hangman?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Crack The Code</h4>
+      <p>"Embark on a code-breaking adventure with 'Code Breaker.' 
+          Your mission is to decipher the hidden code before time runs out. 
+          Using logic and deduction, input your guesses and receive clues to guide you towards the correct combination. 
+          With each attempt, the challenge intensifies. Featuring a variety of codes to crack and adjustable difficulty levels, 
+          'Code Breaker' promises endless intrigue. Can you unlock the secrets and crack the code?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Tetris</h4>
+      <p>"Immerse yourself in the world of falling blocks with 'Block Buster.' 
+          Arrange the shapes to complete lines and clear the board before it fills up. 
+          With each level, the blocks fall faster, testing your speed and strategy. 
+          Featuring addictive gameplay and retro-inspired graphics, 'Block Buster' offers hours of entertainment. 
+          Can you outlast the cascade of blocks and become the ultimate Tetris master?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Sudoku</h4>
+      <p>"Dive into the addictive world of Sudoku with 'Number Cruncher.' 
+        Fill the grid with numbers from 1 to 9, ensuring that each row, column, and 3x3 subgrid contains all digits without repetition. 
+        With varying levels of difficulty and an infinite number of puzzles to solve, 'Number Cruncher' offers endless brain-teasing challenges. 
+        Sharpen your logic and deduction skills as you strive to conquer each Sudoku puzzle. Are you up for the challenge?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Mines Sweeper</h4>
+      <p>"Embark on a nerve-wracking mission with 'Mine Sweeper.' 
+          Navigate through a minefield, strategically clearing cells without detonating hidden bombs. 
+          Use numbered clues to deduce the locations of mines and mark them for avoidance. 
+          With adjustable difficulty levels and a range of grid sizes, 'Mine Sweeper' offers a thrilling challenge for players of all skill levels. 
+          Can you navigate the hazards and emerge victorious in this game of strategic thinking?"ss fun. 
+          Compete for the highest score and become the ultimate Snake master!"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Memeory Matching</h4>
+      <p>"Challenge your memory with 'Memory Match.' 
+          Flip cards to reveal hidden symbols and find matching pairs before time runs out. 
+          With each level, the number of cards increases, putting your recall skills to the test. 
+          Featuring colorful graphics and engaging gameplay, 'Memory Match' offers endless fun for players of all ages. 
+          Can you beat the clock and match all the pairs?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Rock Paper Scissor</h4>
+      <p>"Engage in the ultimate hand gesture battle with 'RPS Showdown.' 
+          Choose between rock, paper, or scissors and face off against the computer or a friend. 
+          Anticipate your opponent's move and strategize to emerge victorious. 
+          With its simple yet addictive gameplay, 'RPS Showdown' provides endless entertainment for players of all ages. 
+          Are you ready to rock, paper, scissors your way to victory?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Flappy Bird</h4>
+      <p>"Enter the thrilling world of 'Flap Frenzy' and guide your bird through a maze of obstacles. 
+        Tap to flap your wings and navigate through narrow gaps, collecting coins along the way. 
+        But watch out – one collision with a pipe ends your flight! With its simple controls and addictive gameplay, 
+        'Flap Frenzy' offers endless challenges. Can you soar to new heights and claim the title of Flap Frenzy champion?"
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>2048</h4>
+      <p>
+        "Dive into the addictive puzzle game 'Merge Madness' and challenge yourself to reach the elusive 2048 tile. 
+         Swipe to move tiles across the grid, merging identical numbers to double their value. 
+        Strategize your moves to create higher-numbered tiles while keeping the grid from filling up. 
+        With its simple yet challenging gameplay, 'Merge Madness' offers hours of entertainment for puzzle enthusiasts. 
+        Can you reach the ultimate goal and achieve the 2048 tile?"
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const searchBox = document.getElementById("search-box");
+    const gameLinks = document.querySelectorAll(".game-grid a");
+
+searchBox.addEventListener("keyup", function() {
+  const searchTerm = this.value.toLowerCase();
+  gameLinks.forEach(function(link) {
+    const gameTitle = link.textContent.toLowerCase();
+    if (gameTitle.includes(searchTerm)) {
+      link.style.display = "";
+    } else {
+      link.style.display = "none";
+    }
+  });
+});
+
+  </script>
+</body>
+</html>

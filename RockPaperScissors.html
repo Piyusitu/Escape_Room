@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rock Paper Scissor Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: "Roboto", sans-serif;
+            font-size: 1em;
+        }
+
+        body {
+            height: 100vh;
+            background-color: darkslateblue;
+        }
+
+        .results {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7em 1em;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .results > .draw {
+            font-size: 2.3em;
+            transform: scale(0);
+        }
+
+        h1 {
+            font-size: 3.7em;
+            color: white;
+            text-align: center;
+            padding: 0.5em 0;
+            letter-spacing: 0.1em;
+        }
+
+        section {
+            padding: 0 15em;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .img {
+            flex-basis: 30%;
+            border-radius: 10px;
+            margin-bottom: 1em;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        button[data-option] {
+            flex-basis: 15%;
+            background-color: transparent;
+            font-size: 1.5em;
+            color: white;
+            border: 2px solid white;
+            border-radius: 10px;
+            line-height: 2em;
+            transition: 0.2 ease;
+        }
+
+        button[data-option]:hover {
+            color: darkslateblue;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .draw-animation {
+            animation: draw 0.5s ease 1 both;
+        }
+
+        .player-choice {
+            background-color: #fff;
+        }
+
+        .pc-choice {
+            background-color: yellow;
+        }
+
+        .draw-color {
+            background-image: linear-gradient(-43deg, white 50%, yellow 50%);
+        }
+
+        @keyframes draw {
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="results">
+            <span class="you-win">You: 0</span>
+            <span class="draw">DRAW!</span>
+            <span class="pc-win">PC: 0</span>
+        </div>
+        <h1>Rock Paper Scissors</h1>
+        <section class="choose">
+            <div class="options">
+                <div data-option="rock" class="img">
+                    <img src="https://raw.githubusercontent.com/developedbyed/rock-paper-scissor/master/assets/rock.png">
+                </div>
+                <div data-option="paper" class="img">
+                    <img src="https://raw.githubusercontent.com/developedbyed/rock-paper-scissor/master/assets/paper.png">
+                </div>
+                <div data-option="scissors" class="img">
+                    <img src="https://raw.githubusercontent.com/developedbyed/rock-paper-scissor/master/assets/scissors.png">
+                </div>
+                <button data-option="rock">Rock</button>
+                <button data-option="paper">Paper</button>
+                <button data-option="scissors">Scissors</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // JavaScript code from script.js goes here
+        class Result {
+    static whoWin(yourChoice, PCchoice) {
+        if (yourChoice === "rock" && PCchoice === "scissors" || yourChoice === "scissors" && PCchoice === "paper" || yourChoice === "paper" && PCchoice === "rock") return "win";
+        else if (yourChoice === "scissors" && PCchoice === "rock" || yourChoice === "paper" && PCchoice === "scissors" || yourChoice === "rock" && PCchoice === "paper") return "lose";
+        else return "draw";
+    }
+}
+
+class Choice {
+    constructor(yourChoice) {
+        this.yourChoice = yourChoice;
+        this.PCchoice = this.drawPcChoice();
+    }
+
+    getYourChoice = () => this.yourChoice;
+    getPcChoice = () => this.PCchoice;
+
+    drawPcChoice() {
+        const options = ["rock", "paper", "scissors"];
+
+        return options[Math.floor(Math.random() * options.length)];
+    }
+}
+
+class Stats {
+    constructor(wins, draws, loses) {
+        this.status = {
+            wins: wins,
+            draws: draws,
+            loses: loses,
+        }
+    }
+    getStats = () => this.status;
+
+    refreshStats(result) {
+        switch (result) {
+            case "win":
+                this.status.wins++;
+                break;
+            case "draw":
+                this.status.draws++;
+                break;
+            case "lose":
+                this.status.loses++;
+                break;
+        }
+    }
+}
+
+class Game {
+    constructor() {
+        this.optionsImg = document.querySelectorAll('.img');
+        this.optionsBtns = document.querySelectorAll('button');
+        this.optionsBtns.forEach(option => option.addEventListener('click', this.startGame.bind(this)))
+
+        this.youWins = document.querySelector('.results > .you-win');
+        this.draw = document.querySelector('.results > .draw');
+        this.PcWins = document.querySelector('.results > .pc-win');
+
+        this.stats = new Stats(0, 0, 0);
+
+        this.render.call(this, this.stats.getStats());
+    }
+
+    startGame(e) {
+        this.optionsImg.forEach(choice => choice.className = 'img');
+        if (this.draw.classList.contains('draw-animation')) {
+            this.draw.classList.toggle('draw-animation');
+        }
+
+
+        this.choice = new Choice(e.target.dataset.option);
+
+        const yourChoice = this.choice.getYourChoice(),
+            PcChoice = this.choice.getPcChoice();
+
+        if (yourChoice === PcChoice) {
+            [...this.optionsImg].find(choice => choice.dataset.option === PcChoice && choice.dataset.option === PcChoice).classList.add('draw-color');
+            this.draw.classList.toggle('draw-animation');
+        } else {
+            [...this.optionsImg].find(choice => choice.dataset.option === yourChoice).classList.add('player-choice');
+            [...this.optionsImg].find(choice => choice.dataset.option === PcChoice).classList.add('pc-choice');
+        }
+
+        this.stats.refreshStats(Result.whoWin(yourChoice, PcChoice));
+
+        this.render.call(this, this.stats.getStats());
+    }
+
+    render(stats) {
+        this.youWins.textContent = `You: ${stats.wins}`;
+        this.PcWins.textContent = `PC: ${stats.loses}`;
+    }
+}
+
+const newGame = new Game();
+    </script>
+</body>
+</html>
